@@ -16,7 +16,11 @@ pipeline{
         }
         stage('Deliver'){
             steps{
-                sh './scripts/deliver.sh'
+               script{
+                    sh './scripts/deliver.sh'
+                    def output=sh(script: 'java -jar target/jenkins-test-1.0-SNAPSHOT.jar', returnStdout: true).trim();
+                    echo "Output from JAR: ${output}"
+                }
             }
         }
     }
